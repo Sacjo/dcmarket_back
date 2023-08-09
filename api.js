@@ -51,5 +51,28 @@ app.post('/proveedores', (req, res)=> {
 })
 
 
+//Actualizar Proveedores
+app.put('/proveedores/:id', (req, res)=> {
+    let proveedores = req.body;
+    let updateQuery = `update proveedores
+                       set nombre = '${proveedores[0].nombre}',
+                       ruc = '${proveedores[0].ruc}',
+                       direccion = '${proveedores[0].direccion}',
+                       ciudad = '${proveedores[0].ciudad}',
+                       email = '${proveedores[0].email}',
+                       plazoentrega = '${proveedores[0].plazoentrega}'
+                       where id = ${req.params.id}`
+                
+    client.query(updateQuery, (err, result)=>{
+        if(!err){
+            res.send('Update was successful')
+        }
+        else{ console.log(err.message) }
+    })
+    client.end;
+})
+
+
+
 client.connect();
 
