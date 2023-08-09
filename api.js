@@ -25,8 +25,12 @@ app.get('/proveedores', (req, res)=>{
 app.get('/proveedores/:id', (req, res)=>{
     client.query(`Select * from proveedores where id=${req.params.id}`, (err, result)=>{
         if(!err){
-            res.send(result.rows);
-        }
+            if (result.rows.length === 0) {
+                res.status(404).send('No encontrado');
+            } else {
+                res.send(result.rows);
+            }
+        }else{ console.log(err.message) }
     });
     client.end;
 })
@@ -43,7 +47,7 @@ app.post('/proveedores', (req, res)=> {
         console.log('Insert Query:', insertQuery); // Add this line for logging
     client.query(insertQuery, (err, result)=>{
         if(!err){
-            res.send('Insertion was successful')
+            res.send('Insertado de forma exitosa')
         }
         else{ console.log(err.message) }
     })
@@ -65,13 +69,31 @@ app.put('/proveedores/:id', (req, res)=> {
                 
     client.query(updateQuery, (err, result)=>{
         if(!err){
-            res.send('Update was successful')
+            res.send('Actualizado de forma exitosa')
         }
         else{ console.log(err.message) }
     })
     client.end;
 })
 
+
+
+//Eliminar Proveedor
+app.delete('/proveedores/:id', (req, res)=> {
+    let insertQuery = `delete from proveedores where id=${req.params.id}`
+
+    client.query(insertQuery, (err, result)=>{
+        if(!err){
+            if (result.rows.length === 0) {
+                res.status(404).send('No encontrado');
+            } else {
+                res.send('Eliminado de forma exitosa')
+            }
+        }
+        else{ console.log(err.message) }
+    })
+    client.end;
+})
 
 
 client.connect();
