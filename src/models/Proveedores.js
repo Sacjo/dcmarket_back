@@ -1,6 +1,7 @@
 import {} from "sequelize";
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
+import { Compras } from "./Compras.js";
 
 export const Proveedores = sequelize.define("proveedores", {
   id: {
@@ -9,6 +10,9 @@ export const Proveedores = sequelize.define("proveedores", {
     autoIncrement: true,
   },
   nombre: {
+    type: DataTypes.STRING,
+  },
+  razonsocial: {
     type: DataTypes.STRING,
   },
   ruc: {
@@ -26,4 +30,14 @@ export const Proveedores = sequelize.define("proveedores", {
   plazoentrega: {
     type: DataTypes.STRING,
   },
+});
+
+Proveedores.hasMany(Compras, {
+  foreignKey: "proveedorId",
+  sourceKey: "id",
+});
+
+Compras.belongsTo(Proveedores, {
+  foreignKey: "proveedorId",
+  targetId: "id",
 });

@@ -1,5 +1,5 @@
 import { Proveedores } from "../models/Proveedores.js";
-
+import { Compras } from "../models/Compras.js";
 //Modificar error a 404 y brindar una respuesta personalizable
 //Listar Proveedores
 export const getProveedores = async (req, res) => {
@@ -30,10 +30,12 @@ export const getProveedor = async (req, res) => {
 export const createProveedor = async (req, res) => {
   try {
     //Declaramos en constantes los datos que recimibimos en el req.body
-    const { nombre, ruc, direccion, ciudad, email, plazoentrega } = req.body;
+    const { nombre, razonsocial, ruc, direccion, ciudad, email, plazoentrega } =
+      req.body;
 
     const newProveedor = await Proveedores.create({
       nombre,
+      razonsocial,
       ruc,
       direccion,
       ciudad,
@@ -54,11 +56,13 @@ export const createProveedor = async (req, res) => {
 export const updateProveedor = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, ruc, direccion, ciudad, email, plazoentrega } = req.body;
+    const { nombre, razonsocial, ruc, direccion, ciudad, email, plazoentrega } =
+      req.body;
     const proveedor = await Proveedores.findByPk(id);
     console.log(proveedor);
 
     proveedor.nombre = nombre;
+    proveedor.razonsocial = razonsocial;
     proveedor.ruc = ruc;
     proveedor.direccion = direccion;
     proveedor.ciudad = ciudad;
@@ -86,4 +90,15 @@ export const deleteProveedor = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+};
+
+export const getProveedorCompras = async (req, res) => {
+  const { id } = req.params;
+  const compras = await Compras.findAll({
+    where: {
+      proveedorId: id,
+    },
+  });
+
+  res.json(compras);
 };
