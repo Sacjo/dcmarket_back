@@ -1,4 +1,5 @@
 import { Clientes } from "../models/Clientes.js";
+import { Ventas } from "../models/Ventas.js";
 
 //Listar Clientes
 export const getClientes = async (req, res) => {
@@ -82,4 +83,15 @@ export const deleteCliente = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+};
+
+export const getClientesventas = async (req, res) => {
+  const { id } = req.params;
+  const ventas = await Ventas.findAll({
+    where: {
+      clienteId: id,
+    },
+  });
+
+  res.json(ventas);
 };

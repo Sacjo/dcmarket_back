@@ -21,16 +21,17 @@ export const getVentasID = async (req, res) => {
   }
 };
 
-//crear ventas
+//crear ventaS
 
 export const createVentas = async (req, res) => {
   try {
     //Declaramos en constantes los datos que recibimo en el req.body
-    const { fechaventa, totalventa, descuento } = req.body;
+    const { fechaventa, totalventa, descuento, clienteId } = req.body;
     const newVenta = await Ventas.create({
       fechaventa,
       totalventa,
       descuento,
+      clienteId,
     });
     console.log(newVenta);
     res.send("Nueva Venta Creada con exito");
@@ -43,16 +44,18 @@ export const createVentas = async (req, res) => {
 export const updateVentas = async (req, res) => {
   try {
     const { id } = req.params;
-    const { fechaventa, totalventa, descuento } = req.body;
+    const { fechaventa, totalventa, descuento, clienteId } = req.body;
     const ventas = await Ventas.findByPk(id);
+    console.log(req.body);
 
     console.log(ventas);
     ventas.fechaventa = fechaventa;
     ventas.totalventa = totalventa;
     ventas.descuento = descuento;
+    ventas.clienteId = clienteId;
 
     await ventas.save();
-    res.send("ventas actualizado");
+    res.send("Ventas actualizado");
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
