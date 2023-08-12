@@ -1,5 +1,6 @@
 import { Proveedores } from "../models/Proveedores.js";
 
+//Modificar error a 404 y brindar una respuesta personalizable
 //Listar Proveedores
 export const getProveedores = async (req, res) => {
   try {
@@ -40,7 +41,10 @@ export const createProveedor = async (req, res) => {
       plazoentrega,
     });
 
-    res.send("Proveedor Creado");
+    res.status(201).json({
+      message: "Proveedor Creado: ",
+      newProveedor: newProveedor.id,
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
