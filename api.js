@@ -14,7 +14,7 @@ app.listen(3300, ()=>{
 app.get('/proveedores', (req, res)=>{
     client.query(`Select * from proveedores`, (err, result)=>{
         if(!err){
-            res.send(result.rows);
+            res.send(result.rows); 
         }
     });
     client.end;
