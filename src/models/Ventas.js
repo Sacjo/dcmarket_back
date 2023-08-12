@@ -11,9 +11,6 @@ export const Ventas = sequelize.define("ventas", {
   fechaventa: {
     type: DataTypes.STRING,
   },
-  fk_id_cliente: {
-    type: DataTypes.INTEGER,
-  },
   totalventa: {
     type: DataTypes.INTEGER,
   },

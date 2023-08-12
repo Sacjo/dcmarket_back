@@ -7,6 +7,8 @@ import productosRoutes from "./routes/productos.route.js";
 
 import comprasRoutes from "./routes/compras.route.js";
 
+import ventasRoutes from "./routes/ventas.route.js";
+
 const app = express();
 
 //middlewares
@@ -18,5 +20,7 @@ app.use(clientesRoutes);
 app.use(productosRoutes);
 
 app.use(comprasRoutes);
+
+app.use(ventasRoutes);
 
 export default app;
