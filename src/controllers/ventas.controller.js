@@ -1,4 +1,5 @@
 import { Ventas } from "../models/Ventas.js";
+import { Clientes } from "../models/Clientes.js";
 
 //Listar Ventas
 export const getVentasAll = async (req, res) => {
@@ -14,7 +15,10 @@ export const getVentasAll = async (req, res) => {
 export const getVentasID = async (req, res) => {
   try {
     const { id } = req.params;
-    const ventas = await Ventas.findOne({ where: { id } });
+    const ventas = await Ventas.findOne({
+      where: { id },
+      include: [{ model: Clientes, attributes: ["nombre"] }],
+    });
     res.json(ventas);
   } catch (error) {
     return res.status(500).json({ message: error.message });
