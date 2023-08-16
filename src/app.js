@@ -22,5 +22,4 @@ app.use(productosRoutes);
 app.use(comprasRoutes);
 
 app.use(ventasRoutes);
-
 export default app;
