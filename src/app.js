@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import proveedoresRoutes from "./routes/proveedores.route.js";
 import clientesRoutes from "./routes/clientes.route.js";
@@ -10,6 +11,9 @@ import comprasRoutes from "./routes/compras.route.js";
 import ventasRoutes from "./routes/ventas.route.js";
 
 const app = express();
+
+// Configurar CORS
+app.use(cors());
 
 //middlewares
 app.use(express.json());
