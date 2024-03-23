@@ -6,6 +6,9 @@ async function main() {
     await sequelize.sync();
     app.listen(3300);
     console.log("Server is listening on PORT: ", 3300);
+    app.use(cors({
+      origin: 'http://localhost:3000'
+    }));
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
